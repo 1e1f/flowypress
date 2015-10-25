@@ -55,19 +55,11 @@ Template.flow.events({
       event.target.blur();
       return false;
     } else if (event.keyCode === 9) {
-      // event.preventDefault();
-      // var element = event.target;
-      // var $element = $(element);
-      // var start = element.selectionStart;
-      // var end = element.selectionEnd;
-      // 
-      // // set textarea value to: text before caret + tab + text after caret
-      // $element.val($element.val().substring(0, start)
-      //             + "<ul><li></ul>"
-      //             + $element.val().substring(end));
-      // 
-      // // put caret at right position again
-      // element.selectionStart = element.selectionStart + 8;
+      Flows.insert({
+        title: "flow",
+        val: "text",
+        parent: this._id
+      });
     }
   },
   'blur .flowBox': function(event) {
