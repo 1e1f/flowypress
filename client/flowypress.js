@@ -1,5 +1,10 @@
 Template.flows.helpers({
-  flows: function() {
+  getRoot: function(){
+    console.log(this);
+    console.log('getting root', this.rootId)
+    return Flows.find({_id: this.rootId}, {limit:1})
+  },
+  flows: function(id) {
     return Flows.find({
       parent: {
         $exists: false
@@ -40,19 +45,21 @@ Template.flow.events({
       title: "flow",
       val: "text",
       parent: this._id,
-      sortIndex: this.children().count()
+      sortIndex: this.children().count() || 0
     });
     return false
   },
   'keydown .flowTitle': function(event) {
     if (event.keyCode === 13) {
-      Flows.insert({
-        title: "flow",
-        val: "text",
-        parent: this.parent
-      }, function() {
-        $(event.target).closest('[contentEditable]').focus();
-      });
+      if (this.parent) {
+        Flows.findOne(this.parent).addChild();
+      } else {
+        Flows.insert({
+          title: 'flow',
+          val: 'text',
+          sortIndex: this.children().count()
+        });
+      }
       return false;
     }
     if (event.keyCode === 9 && event.shiftKey) {

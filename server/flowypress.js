@@ -28,15 +28,25 @@ Api.addRoute('v1/flow-id/:flowId', {
   }
 });
 
-Meteor.startup(function() {
-  if (!Flows.findOne()) {
-    var parent = Flows.insert({
-      title: "firstFlow"
-    })
 
-    var child = Flows.insert({
-      parent: parent,
-      title: "secondFlow"
-    })
-  }
-})
+Meteor.publish('flows', function(){
+  return Flows.find();
+});
+
+// Meteor.startup(function() {
+//   if (!Flows.findOne()) {
+//     for (i = 0; i < 5; i++) {
+//       var parent = Flows.insert({
+//         title: "firstFlow"
+//       })
+//       for (j = 0; j < parseInt(Math.random() * 5); j++) {
+//         var child = Flows.insert({
+//           parent: parent,
+//           title: "flow" + j,
+//           sortIndex: i
+//         })
+//       }
+//
+//     }
+//   }
+// })
