@@ -32,24 +32,6 @@ Template.flow.events({
   },
   'keydown .flowTitle': function(event) {
     if (event.keyCode === 13) {
-      event.target.blur();
-      return false;
-    }
-  },
-  'blur .flowTitle': function(event) {
-    var text;
-    text = event.target.innerHTML;
-    if (text !== this.title) {
-      event.target.innerHTML = '';
-    }
-    Flows.update(this._id, {
-      $set: {
-        title: text
-      }
-    });
-  },
-  'keydown .flowBox': function(event) {
-    if (event.keyCode === 13) {
       Flows.insert({
         title: "flow",
         val: "text",
@@ -67,6 +49,18 @@ Template.flow.events({
       }
     }
     return false;
+  },
+  'blur .flowTitle': function(event) {
+    var text;
+    text = event.target.innerHTML;
+    if (text !== this.title) {
+      event.target.innerHTML = '';
+    }
+    Flows.update(this._id, {
+      $set: {
+        title: text
+      }
+    });
   },
   'blur .flowBox': function(event) {
     var text;
