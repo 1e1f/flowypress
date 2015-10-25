@@ -27,7 +27,7 @@ Template.flow.events({
       title: "flow",
       val: "text",
       parent: this._id
-    })
+    });
     return false
   },
   'keydown .flowTitle': function(event) {
@@ -50,15 +50,23 @@ Template.flow.events({
   },
   'keydown .flowBox': function(event) {
     if (event.keyCode === 13) {
-      event.target.blur();
-      return false;
-    } else if (event.keyCode === 9) {
       Flows.insert({
         title: "flow",
         val: "text",
-        parent: this._id
+        parent: this.parent
+      }, function() {
+        $(event.target).closest('[contentEditable]').focus();
       });
     }
+    if (event.keyCode === 9 && event.shiftKey) {
+      Flows.update({_id: this._id}, {$set: {parent: Flows.findOne({id: this.parent}).parent}});
+    } else if (event.keyCode === 9) {
+      var parent = Flows.find({parent: this.parent, sort: {$lt: this.sort}});
+      if (parent) {
+        Flows.update({_id: this._id}, {$set: {parent: parent._id}});
+      }
+    }
+    return false;
   },
   'blur .flowBox': function(event) {
     var text;

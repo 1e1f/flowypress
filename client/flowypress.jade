@@ -3,24 +3,28 @@ head
     flowBox
 
 template(name="flows")
-  button.btn.newFlow +
-  each flows
-    h1.flowTitle(contentEditable="true")
-      |!{title}
-    +flow(this)
-      
+  .flow-container
+    each flows
+      h3.flowTitle(contentEditable="true")
+        |!{title}
+      ul
+        +flow(this)
+        
 template(name="shared")
-  h1.flowTitle(contentEditable="true")
-    |!{title}
+  button.btn
+  h3.flowTitle(contentEditable="true")
+    |#{title}
   +flow
   
 template(name="flow")
-  div.flowBox(contentEditable="true")
-    |!{val}
-  button.btn.subFlow +
+  li
+    div.flowTitle(contentEditable="true")
+      |!{title}
+    if val
+      .flowBox(contentEditable="true")
+        |!{val}
   if children
-    ul
-      each children
-        li
-          +flow(this)
-    |#{_id}
+    li
+      ul
+        each children
+            +flow(this)
