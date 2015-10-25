@@ -6,17 +6,22 @@ body
   +flowBox
 
 template(name="flowBox")
-  button.btn.newFlow +
-  each flows
-    h1.flowTitle(contentEditable="true")
-      |!{title}
-    +flow(this)
+  .flow-container
+    each flows
+      h1.flowTitle(contentEditable="true")
+        |!{title}
+      ul
+        +flow(this)
       
 template(name="flow")
-  div.flowBox(contentEditable="true")
-    |!{val}
-  ul
-    each children
-      li
-        +flow(this)
-  button.btn.subFlow +
+  li
+    div.flowTitle(contentEditable="true")
+      |!{title}
+    if val
+      .flowBox(contentEditable="true")
+        |!{val}
+  if children
+    li
+      ul
+        each children
+            +flow(this)
