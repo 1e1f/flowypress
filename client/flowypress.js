@@ -32,6 +32,18 @@ Template.flowBox.events({
     if (event.keyCode === 13) {
       event.target.blur();
       return false;
+    } else if (event.keyCode === 9) {
+      e.preventDefault();
+      var start = this.selectionStart;
+      var end = this.selectionEnd;
+
+      // set textarea value to: text before caret + tab + text after caret
+      $(this).val($(this).val().substring(0, start)
+                  + "<ul><li></ul>"
+                  + $(this).val().substring(end));
+
+      // put caret at right position again
+      this.selectionStart = this.selectionStart + 8;
     }
   },
   'blur .flowBox': function(event) {
