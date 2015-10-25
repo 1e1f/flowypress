@@ -1,6 +1,6 @@
 Template.flowBox.helpers({
   flows: function() {
-    return Flows.find({}, {
+    return Flows.find({parent: {$exists:false}}, {
       sort: {
         title: 1
       }
@@ -26,11 +26,13 @@ Template.flow.helpers({
 
 Template.flow.events({
   'click .subFlow': function(e, t) {
+    e.preventDefault()
     Flows.insert({
       title: "flow",
       val: "text",
       parent: this._id
     })
+    return false
   },
   'keydown .flowTitle': function(event) {
     if (event.keyCode === 13) {
