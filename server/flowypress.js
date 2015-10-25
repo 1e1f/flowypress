@@ -11,8 +11,8 @@ Api.addRoute('v1/flow-id/:flowId', {
   enableCors: true
 }, {
   get: function() {
-    var flow, 
-        flowId = this.urlParams.flowId;
+    var flow,
+      flowId = this.urlParams.flowId;
 
     check(flowId, String);
 
@@ -27,3 +27,16 @@ Api.addRoute('v1/flow-id/:flowId', {
     };
   }
 });
+
+Meteor.startup(function() {
+  if (!Flows.findOne()) {
+    var parent = Flows.insert({
+      title: "firstFlow"
+    })
+
+    var child = Flows.insert({
+      parent: parent,
+      title: "secondFlow"
+    })
+  }
+})

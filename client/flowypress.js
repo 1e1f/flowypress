@@ -39,7 +39,8 @@ Template.flow.events({
     Flows.insert({
       title: "flow",
       val: "text",
-      parent: this._id
+      parent: this._id,
+      sortIndex: this.children().count()
     });
     return false
   },
@@ -68,14 +69,12 @@ Template.flow.events({
     } else if (event.keyCode === 9) {
       var parent = Flows.findOne({
         parent: this.parent,
-        sort: {
+        sortIndex: {
           $lt: this.sort
         }
       });
       if (parent) {
-        Flows.update({
-          _id: this._id
-        }, {
+        Flows.update(this._id, {
           $set: {
             parent: parent._id
           }
