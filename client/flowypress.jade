@@ -2,17 +2,16 @@ head
   title
     flowBox
 
+template(name="layout")
+  #content
+    +yield
+  
 template(name="flows")
+  h1 #{title}
   .flow-container
-    each flows
-      ul
-        +flow(this)
-        
-template(name="shared")
-  button.btn
-  h3.flowTitle(contentEditable="true")
-    |#{title}
-  +flow
+    ul
+      each children
+        +flow
   
 template(name="flow")
   a(id=_id data-trigger="click hover" data-toggle="popover" data-content=flowMenu)
