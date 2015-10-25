@@ -93,9 +93,7 @@ Template.flow.events({
         _id: this._id
       }, {
         $set: {
-          parent: Flows.findOne({
-            id: this.parent
-          }).parent
+          parent: Flows.findOne(this.parent).parent || null
         }
       });
       return false;
@@ -103,7 +101,7 @@ Template.flow.events({
       var parent = Flows.findOne({
         parent: this.parent,
         sortIndex: {
-          $lt: this.sort
+          $lt: this.sortIndex
         }
       });
       if (parent) {
