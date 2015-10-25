@@ -15,8 +15,9 @@ template(name="flowBox")
 template(name="flow")
   div.flowBox(contentEditable="true")
     |!{val}
+  button.btn.subFlow +
   ul
     each children
       li
         +flow(this)
-  button.btn.subFlow +
+  |#{_id}
