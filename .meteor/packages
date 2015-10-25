@@ -30,8 +30,10 @@ rubaxa:sortable
 nimble:restivus
 fourseven:scss
 reywood:bootstrap3-sass
-kadira:flow-router
 kadira:blaze-layout
 check
 fortawesome:fontawesome
 meteortoys:allthings
+
+iron:layout
+iron:router

@@ -1,5 +1,10 @@
 Template.flows.helpers({
-  flows: function() {
+  getRoot: function(){
+    console.log(this);
+    console.log('getting root', this.rootId)
+    return Flows.find({_id: this.rootId}, {limit:1})
+  },
+  flows: function(id) {
     return Flows.find({
       parent: {
         $exists: false
@@ -40,7 +45,7 @@ Template.flow.events({
       title: "flow",
       val: "text",
       parent: this._id,
-      sortIndex: this.children().count()
+      sortIndex: this.children().count() || 0
     });
     return false
   },
