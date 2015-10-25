@@ -6,19 +6,23 @@ Api = new Restivus({
   prettyJson: true
 });
 
-Api.addRoute('flow/:id', {
+Api.addRoute('v1/flow-id/:flowId', {
   authRequired: false
 }, {
   get: function() {
-    var flow;
+    var flow, 
+        flowId = this.urlParams.flowId;
+
+    check(flowId, String);
+
     flow = Flows.findOne({
-      _id: this.urlParams.id
+      _id: flowId
     });
     if (flow) {
       return flow;
     }
     return {
-      error: "can't find flow for id: " + this.urlParams.id
+      error: "can't find flow for id: " + flowId
     };
   }
 });
