@@ -17,7 +17,8 @@ template(name="shared")
   +flow
   
 template(name="flow")
-  i.fa.fa-circle-o.flow-bullet
+  a(id=_id data-trigger="click hover" data-toggle="popover" data-content=flowMenu)
+    i.fa.fa-circle-o.flow-bullet
   li
     div.flowTitle(contentEditable="true")
       |!{title}
