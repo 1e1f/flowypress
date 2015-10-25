@@ -25,4 +25,6 @@ aldeed:autoform
 dburles:collection-helpers
 
 mquandalle:jade
-stylus
+cryptoquick:stylus-multi
+rubaxa:sortable
+innovae:bootstrap-stylus
