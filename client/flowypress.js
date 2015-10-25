@@ -52,6 +52,7 @@ Template.flow.events({
       }, function() {
         $(event.target).closest('[contentEditable]').focus();
       });
+      return false;
     }
     if (event.keyCode === 9 && event.shiftKey) {
       Flows.update({
@@ -63,8 +64,9 @@ Template.flow.events({
           }).parent
         }
       });
+      return false;
     } else if (event.keyCode === 9) {
-      var parent = Flows.find({
+      var parent = Flows.findOne({
         parent: this.parent,
         sort: {
           $lt: this.sort
@@ -79,8 +81,8 @@ Template.flow.events({
           }
         });
       }
+      return false;
     }
-    return false;
   },
   'blur .flowTitle': function(event) {
     var text;

@@ -5,8 +5,6 @@ head
 template(name="flows")
   .flow-container
     each flows
-      h3.flowTitle(contentEditable="true")
-        |!{title}
       ul
         +flow(this)
         
