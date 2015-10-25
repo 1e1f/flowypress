@@ -1,6 +1,10 @@
 Template.flowBox.helpers({
   flows: function() {
-    return Flows.find({},{sort: {title:1}})
+    return Flows.find({}, {
+      sort: {
+        title: 1
+      }
+    })
   }
 })
 
@@ -8,6 +12,24 @@ Template.flowBox.events({
   'click .newFlow': function(e, t) {
     Flows.insert({
       title: "new flow"
+    })
+  }
+})
+
+Template.flow.helpers({
+  children: function() {
+    return Flows.find({
+      parent: this._id
+    })
+  }
+})
+
+Template.flow.events({
+  'click .subFlow': function(e, t) {
+    Flows.insert({
+      title: "flow",
+      val: "text",
+      parent: this._id
     })
   },
   'keydown .flowTitle': function(event) {
@@ -38,9 +60,7 @@ Template.flowBox.events({
       var end = this.selectionEnd;
 
       // set textarea value to: text before caret + tab + text after caret
-      $(this).val($(this).val().substring(0, start)
-                  + "<ul><li></ul>"
-                  + $(this).val().substring(end));
+      $(this).val($(this).val().substring(0, start) + "<ul><li></ul>" + $(this).val().substring(end));
 
       // put caret at right position again
       this.selectionStart = this.selectionStart + 8;

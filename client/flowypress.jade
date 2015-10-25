@@ -10,5 +10,13 @@ template(name="flowBox")
   each flows
     h1.flowTitle(contentEditable="true")
       |!{title}
-    .flowBox(contentEditable="true")
-      |!{val}
+    +flow(this)
+      
+template(name="flow")
+  div.flowBox(contentEditable="true")
+    |!{val}
+  ul
+    each children
+      li
+        +flow(this)
+  button.btn.subFlow +
