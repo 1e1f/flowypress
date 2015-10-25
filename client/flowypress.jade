@@ -7,6 +7,8 @@ template(name="layout")
     +yield
   
 template(name="flows")
+  if previousFlow
+    a(href="/shared/#{previousFlow._id}") #{previousFlow.title}
   h1 #{title}
   .flow-container
     ul
@@ -27,4 +29,4 @@ template(name="flow")
     li
       ul
         each children
-            +flow(this)
+          +flow(this)
