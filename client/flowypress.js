@@ -46,13 +46,15 @@ Template.flow.events({
   },
   'keydown .flowTitle': function(event) {
     if (event.keyCode === 13) {
-      Flows.insert({
-        title: "flow",
-        val: "text",
-        parent: this.parent
-      }, function() {
-        $(event.target).closest('[contentEditable]').focus();
-      });
+      if (this.parent) {
+        Flows.findOne(this.parent).addChild();
+      } else {
+        Flows.insert({
+          title: 'flow',
+          val: 'text',
+          sortIndex: this.children().count()
+        });
+      }
       return false;
     }
     if (event.keyCode === 9 && event.shiftKey) {
