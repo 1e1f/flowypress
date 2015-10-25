@@ -14,13 +14,14 @@ template(name="flowBox")
         +flow(this)
       
 template(name="flow")
+  i.fa.fa-circle-o.flow-bullet
   li
     div.flowTitle(contentEditable="true")
       |!{title}
     if val
       .flowBox(contentEditable="true")
         |!{val}
-  if children
+  if children.count
     li
       ul
         each children
