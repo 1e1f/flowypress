@@ -42,6 +42,8 @@ mobile-experience@1.0.1
 mobile-status-bar@1.0.6
 mongo@1.1.2
 mongo-id@1.0.1
+mquandalle:jade@0.4.4
+mquandalle:jade-compiler@0.4.4
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
@@ -56,6 +58,7 @@ session@1.1.1
 spacebars@1.0.7
 spacebars-compiler@1.0.7
 standard-minifiers@1.0.1
+stylus@2.511.0_2
 templating@1.1.4
 templating-tools@1.0.0
 tracker@1.0.9
