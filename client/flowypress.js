@@ -1,4 +1,4 @@
-Template.flowBox.helpers({
+Template.flows.helpers({
   flows: function() {
     return Flows.find({parent: {$exists:false}}, {
       sort: {
@@ -8,7 +8,7 @@ Template.flowBox.helpers({
   }
 })
 
-Template.flowBox.events({
+Template.flows.events({
   'click .newFlow': function(e, t) {
     Flows.insert({
       title: "new flow"
@@ -16,12 +16,8 @@ Template.flowBox.events({
   }
 })
 
-Template.flow.helpers({
-  children: function() {
-    return Flows.find({
-      parent: this._id
-    })
-  }
+Template.flow.onRendered(function(){
+  //jQuery('li.important').mouseover();
 })
 
 Template.flow.events({

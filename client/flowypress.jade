@@ -2,22 +2,25 @@ head
   title
     flowBox
 
-body
-  +flowBox
-
-template(name="flowBox")
+template(name="flows")
   button.btn.newFlow +
   each flows
     h1.flowTitle(contentEditable="true")
       |!{title}
     +flow(this)
       
+template(name="shared")
+  h1.flowTitle(contentEditable="true")
+    |!{title}
+  +flow
+  
 template(name="flow")
   div.flowBox(contentEditable="true")
     |!{val}
   button.btn.subFlow +
-  ul
-    each children
-      li
-        +flow(this)
-  |#{_id}
+  if children
+    ul
+      each children
+        li
+          +flow(this)
+    |#{_id}
