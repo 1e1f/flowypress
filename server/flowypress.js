@@ -7,7 +7,8 @@ Api = new Restivus({
 });
 
 Api.addRoute('v1/flow-id/:flowId', {
-  authRequired: false
+  authRequired: false,
+  enableCors: true
 }, {
   get: function() {
     var flow, 

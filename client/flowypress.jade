@@ -2,17 +2,20 @@ head
   title
     flowBox
 
-body
-  +flowBox
-
-template(name="flowBox")
+template(name="flows")
   .flow-container
     each flows
-      h1.flowTitle(contentEditable="true")
+      h3.flowTitle(contentEditable="true")
         |!{title}
       ul
         +flow(this)
-      
+        
+template(name="shared")
+  button.btn
+  h3.flowTitle(contentEditable="true")
+    |#{title}
+  +flow
+  
 template(name="flow")
   i.fa.fa-circle-o.flow-bullet
   li
