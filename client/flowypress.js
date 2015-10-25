@@ -39,15 +39,10 @@ Template.flow.events({
     Flows.insert({
       title: "flow",
       val: "text",
-      parent: this._id
+      parent: this._id,
+      sortIndex: this.children().count()
     });
     return false
-  },
-  'keydown .flowTitle': function(event) {
-    if (event.keyCode === 13) {
-      event.target.blur();
-      return false;
-    }
   },
   'blur .flowTitle': function(event) {
     var text;
@@ -61,7 +56,7 @@ Template.flow.events({
       }
     });
   },
-  'keydown .flowBox': function(event) {
+  'keydown .flowTitle': function(event) {
     if (event.keyCode === 13) {
       Flows.insert({
         title: "flow",
@@ -82,16 +77,14 @@ Template.flow.events({
         }
       });
     } else if (event.keyCode === 9) {
-      var parent = Flows.find({
+      var parent = Flows.findOne({
         parent: this.parent,
-        sort: {
+        sortIndex: {
           $lt: this.sort
         }
       });
       if (parent) {
-        Flows.update({
-          _id: this._id
-        }, {
+        Flows.update(this._id, {
           $set: {
             parent: parent._id
           }
