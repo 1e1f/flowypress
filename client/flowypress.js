@@ -1,6 +1,10 @@
 Template.flows.helpers({
   flows: function() {
-    return Flows.find({parent: {$exists:false}}, {
+    return Flows.find({
+      parent: {
+        $exists: false
+      }
+    }, {
       sort: {
         title: 1
       }
@@ -16,8 +20,17 @@ Template.flows.events({
   }
 })
 
-Template.flow.onRendered(function(){
-  //jQuery('li.important').mouseover();
+Template.flow.helpers({
+  flowMenu: function() {
+    return Blaze.toHTMLWithData(Template.flowMenu, this)
+  }
+})
+
+Template.flow.onRendered(function() {
+  return $('[data-toggle="popover"]').popover({
+    html: true,
+    placement: 'top'
+  });
 })
 
 Template.flow.events({
@@ -41,11 +54,30 @@ Template.flow.events({
       });
     }
     if (event.keyCode === 9 && event.shiftKey) {
-      Flows.update({_id: this._id}, {$set: {parent: Flows.findOne({id: this.parent}).parent}});
+      Flows.update({
+        _id: this._id
+      }, {
+        $set: {
+          parent: Flows.findOne({
+            id: this.parent
+          }).parent
+        }
+      });
     } else if (event.keyCode === 9) {
-      var parent = Flows.find({parent: this.parent, sort: {$lt: this.sort}});
+      var parent = Flows.find({
+        parent: this.parent,
+        sort: {
+          $lt: this.sort
+        }
+      });
       if (parent) {
-        Flows.update({_id: this._id}, {$set: {parent: parent._id}});
+        Flows.update({
+          _id: this._id
+        }, {
+          $set: {
+            parent: parent._id
+          }
+        });
       }
     }
     return false;
