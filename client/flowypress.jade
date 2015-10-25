@@ -1,11 +1,14 @@
 head
   title
-    flowypress
+    flowBox
 
 body
-  h1 Welcome to Meteor!
-  +hello
+  +flowBox
 
-template(name="hello")
-  h1 Workflowypress
-  div#flow(contentEditable="true")
+template(name="flowBox")
+  button.btn.newFlow +
+  each flows
+    h1.flowTitle(contentEditable="true")
+      |!{title}
+    .flowBox(contentEditable="true")
+      |!{val}
