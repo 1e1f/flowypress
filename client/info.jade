@@ -1,8 +1,8 @@
-template(name="flowMenu")
+template(name="flowMenu")  
+  button.btn.btn-primary.focus
+    |focus
+  button.btn.btn-warning.delete
+    i.fa.fa-trash
   .flow-container
-    button.btn.btn-primary.focus
-      |focus
-    button.btn.btn-primary.delete
-      i.fa.fa-trash
-    button.btn.btn-primary.delete
-      |#{embedCode}
+    |#{embedScript}
+    |#{embedHtml}

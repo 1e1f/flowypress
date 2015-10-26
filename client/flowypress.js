@@ -1,8 +1,12 @@
 Template.flows.helpers({
-  getRoot: function(){
+  getRoot: function() {
     console.log(this);
     console.log('getting root', this.rootId)
-    return Flows.find({_id: this.rootId}, {limit:1})
+    return Flows.find({
+      _id: this.rootId
+    }, {
+      limit: 1
+    })
   },
   flows: function(id) {
     return Flows.find({
@@ -15,7 +19,7 @@ Template.flows.helpers({
       }
     })
   },
-  previousFlow: function(){
+  previousFlow: function() {
     return Session.get('previousFlow')
   }
 })
@@ -25,6 +29,17 @@ Template.flows.events({
     Flows.insert({
       title: "new flow"
     })
+  },
+  'click .focus': function(e, t) {
+    console.log('focus', this._id)
+    Session.set('previousFlow', this._id)
+    Router.go('/shared/' + this._id)
+  },
+  'click .trash': function(e, t) {
+    console.log('trash', this._id)
+      //Session.set('previousFlow', this._id)
+      //Router.go('/shared/'+this._id)
+    Flows.remove(this._id)
   }
 })
 
@@ -40,27 +55,27 @@ Template.flow.onRendered(function() {
   //   placement: 'top'
   // });
   $('[data-toggle="popover"]').popover({
-       html: true,
-       trigger: 'manual',
-       container: $(this).attr('id'),
-       placement: 'bottom',
-       content: function () {
-           $return = '<div class="hover-hovercard"></div>';
-       }
-   }).on("mouseenter", function () {
-       var _this = this;
-       $(this).popover("show");
-       $(this).siblings(".popover").on("mouseleave", function () {
-           $(_this).popover('hide');
-       });
-   }).on("mouseleave", function () {
-       var _this = this;
-       setTimeout(function () {
-           if (!$(".popover:hover").length) {
-               $(_this).popover("hide")
-           }
-       }, 100);
-   });
+    html: true,
+    trigger: 'manual',
+    container: $(this).attr('id'),
+    placement: 'bottom',
+    content: function() {
+      $return = '<div class="hover-hovercard"></div>';
+    }
+  }).on("mouseenter", function() {
+    var _this = this;
+    $(this).popover("show");
+    $(this).siblings(".popover").on("mouseleave", function() {
+      $(_this).popover('hide');
+    });
+  }).on("mouseleave", function() {
+    var _this = this;
+    setTimeout(function() {
+      if (!$(".popover:hover").length) {
+        $(_this).popover("hide")
+      }
+    }, 100);
+  });
 
 })
 
